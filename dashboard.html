@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Campus Social</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Campus<span>Social</span></div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="#" id="logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="dashboard-page">
+            <div class="card composer">
+                <h2>Create a Post</h2>
+                <textarea id="post-content" placeholder="What's happening on campus?"></textarea>
+                <button class="btn btn-primary" id="create-post-btn">Post Update</button>
+            </div>
+            
+            <div class="card">
+                <h2>Campus Feed</h2>
+                <div id="posts-container">
+                    <!-- Posts will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            if (!localStorage.getItem('currentUser')) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Load current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            // Set up event listeners
+            document.getElementById('create-post-btn').addEventListener('click', createPost);
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            
+            // Load posts
+            loadPosts();
+            
+            // Simulate real-time updates
+            if (window.postUpdateInterval) {
+                clearInterval(window.postUpdateInterval);
+            }
+            
+            window.postUpdateInterval = setInterval(() => {
+                // Sometimes duplicate the last post to simulate real-time bug
+                if (window.allPosts && window.allPosts.length > 0 && Math.random() > 0.7) {
+                    const lastPost = window.allPosts[window.allPosts.length - 1];
+                    window.allPosts.push({...lastPost, id: 'dup-' + Date.now()});
+                    renderPosts();
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
