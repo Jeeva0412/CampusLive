@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Social - Connect with Your Campus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Campus<span>Social</span></div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="landing-page">
+            <div class="hero">
+                <h1>Connect with Your Campus</h1>
+                <p>Share updates, events, and announcements with your campus community.</p>
+            </div>
+            
+            <div class="auth-forms">
+                <div class="auth-form">
+                    <h2>Login</h2>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password">
+                    </div>
+                    <div id="login-error" class="error-message">Invalid email or password</div>
+                    <button class="btn btn-primary" id="login-btn">Login</button>
+                </div>
+                
+                <div class="auth-form">
+                    <h2>Register</h2>
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" placeholder="Create a password">
+                    </div>
+                    <div id="register-error" class="error-message">Please fill all fields correctly</div>
+                    <button class="btn btn-primary" id="register-btn">Register</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            if (localStorage.getItem('currentUser')) {
+                window.location.href = 'dashboard.html';
+            }
+            
+            // Set up event listeners
+            document.getElementById('login-btn').addEventListener('click', login);
+            document.getElementById('register-btn').addEventListener('click', register);
+            
+            // Allow form submission with Enter key
+            document.getElementById('login-password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') login();
+            });
+            
+            document.getElementById('register-password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') register();
+            });
+        });
+    </script>
+</body>
+</html>

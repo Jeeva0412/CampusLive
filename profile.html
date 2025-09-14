@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Campus Social</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Campus<span>Social</span></div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="profile.html" class="active">Profile</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="#" id="logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="profile-page">
+            <div class="card">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profile-avatar">JS</div>
+                    <div class="profile-info">
+                        <h2 id="profile-name">John Smith</h2>
+                        <p class="profile-bio" id="profile-bio">Computer Science student interested in AI and web development.</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="edit-bio">Bio</label>
+                    <input type="text" id="edit-bio" placeholder="Tell us about yourself">
+                </div>
+                <button class="btn btn-primary" id="update-profile-btn">Update Profile</button>
+            </div>
+            
+            <div class="card">
+                <h2>Your Posts</h2>
+                <div id="user-posts-container">
+                    <!-- User's posts will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="profile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            if (!localStorage.getItem('currentUser')) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Set up event listeners
+            document.getElementById('update-profile-btn').addEventListener('click', updateProfile);
+            document.getElementById('logout-btn').addEventListener('click', logout);
+            
+            // Load profile data
+            loadProfile();
+        });
+    </script>
+</body>
+</html>
